@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Clone Repository') {
       steps {
-        git 'https://github.com/Daffadon/ci-cd-node.git'
+        git branch: 'main', url: 'https://github.com/Daffadon/ci-cd-node.git'
       }
     }
     stage('Build Docker Image') {
