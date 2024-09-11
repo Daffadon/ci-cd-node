@@ -9,7 +9,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-          dockerImage = docker.build("hello-world-app", ".")
+          dockerImage = docker.build("ci-cd-node", ".")
         }
       }
     }
