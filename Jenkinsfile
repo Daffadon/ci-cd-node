@@ -23,10 +23,22 @@ pipeline {
         }
       }
     }
+    stage ("Clean up Docker container") {
+      steps {
+        script {
+          def container =  docker.ps().find { it.names.contain('nodeapp') }
+          
+          if(container) {
+            docker.stop(container.id)
+            docker.remove(container.id)
+          }
+        }
+      }
+    }
     stage('Deploy to Production') {
       steps {
         script {
-          dockerImage.run('-p 3000:3000')
+          dockerImage.run('-p 3000:3000 --name nodeapp')
         }
       }
     }
