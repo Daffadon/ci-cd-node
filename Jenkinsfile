@@ -26,12 +26,18 @@ pipeline {
     stage ("Clean up Docker container") {
       steps {
         script {
-          def container =  docker.ps().find { it.names.contain('nodeapp') }
-          
-          if(container) {
-            docker.stop(container.id)
-            docker.remove(container.id)
-          }
+          sh """
+            if [ \$(docker ps -q -f name=nodeapp) ]; then
+              docker stop nodeapp
+            fi
+            """
+
+            // Remove the container if it exists
+            sh """
+            if [ \$(docker ps -a -q -f name=nodeapp) ]; then
+              docker rm nodeapp
+            fi
+            """
         }
       }
     }
