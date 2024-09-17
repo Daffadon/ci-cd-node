@@ -25,13 +25,13 @@ describe("GET /health", () => {
 });
 
 app.get("/ci-cd", (req, res) => {
-  res.send("ci-cd is working fine");
+  res.send("ci-cd is working fine!!");
 });
 
 describe("GET /ci-cd", () => {
   it("should return ci-cd page working", async () => {
     const rest = await request(app).get("/ci-cd");
-    expect(rest.text).toBe("ci-cd is working fine");
+    expect(rest.text).toBe("ci-cd is working fine!!");
     expect(rest.statusCode).toBe(200);
   });
 });
